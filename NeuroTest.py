@@ -32,7 +32,7 @@ class Digineuron2():
 		# -1 Inhibitory, 0 Non-Active, 1 Excitatory
 		
 		self.orientation = [Trit(),Trit()] 
-		#-1-1 SenseF MotorF;-10 SenseR MotorL
+		#-1-1 SenseF MotorR;-10 SenseR MotorL
 		#0-1 DownF UpR; 00 INVALID
 		#10 SenseL MotorR; 01 DownR UpF
 		#11 MotorF, SenseR
@@ -47,11 +47,22 @@ class Digineuron2():
  
 class Neuro_central_processor():
 	def __init__(self):
+		self.neuron_cyclemax = 0
+		self.active_neurons = 0
 		self.input_address = []
 		for trit in range(0,9):
 			self.fire_input_address.append(Trit())
 		self.fire_input_firetype = Trit()
-	
+
+	def reduce_cycle(self):
+		self.cyclemax -= 1
+
+	def reduce_cycle_custom(self,reduce_amount):
+		self.cyclemax = self.cyclemax - reduce_amount
+
+	def increase_cycle_custom(self, increase_amount):
+		self.cyclemax = self.cyclemax + increase_amount
+
 	def fire_neuron(self,initial_address,output_address,gate,valence):
 		if gate == -1:
 			
